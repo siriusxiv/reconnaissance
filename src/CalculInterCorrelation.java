@@ -23,25 +23,25 @@ public class CalculInterCorrelation {
 				p2[i+image.getWidth()*j]=image.getPixel(i, j)*image.getPixel(i, j);
 			}
 		}
-		sN=new double[image.getWidth()
-						* (image.getHeight()-motif.getHeight())];
+		int diffHeight = image.getHeight()-motif.getHeight();
+		sN=new double[image.getWidth()	* diffHeight];
 		for(int i = 0 ; i<image.getWidth() ; i++){
-			for(int j = 0 ; j < image.getHeight()-motif.getHeight() ; j++){
+			for(int j = 0 ; j < diffHeight ; j++){
 				sN[i+image.getWidth()*j]=0;
 				for(int k = 0 ; k<motif.getHeight() ; k++){
 					sN[i+image.getWidth()*j]+=p2[i+image.getWidth()*(j+k)];
 				}
 			}
 		}
-		sMN=new double[( image.getWidth() - motif.getWidth() )
-		               * ( image.getHeight() - motif.getHeight() )];
-		for(int i = 0 ; i<image.getWidth()-motif.getWidth() ; i++){
-			for(int j = 0 ; j < image.getHeight()-motif.getHeight() ; j++){
-				sMN[i+(image.getWidth()-motif.getWidth())*j]=0;
+		int diffWidth = image.getWidth() - motif.getWidth();
+		sMN=new double[diffWidth * diffHeight];
+		for(int i = 0 ; i<diffWidth ; i++){
+			for(int j = 0 ; j < diffHeight ; j++){
+				sMN[i+diffWidth*j]=0;
 				for(int k = 0 ; k<motif.getWidth() ; k++){
-					sMN[i+(image.getWidth()-motif.getWidth())*j]+=sN[i+k+image.getWidth()*j];
+					sMN[i+diffWidth*j]+=sN[i+k+image.getWidth()*j];
 				}
-				sMN[i+(image.getWidth()-motif.getWidth())*j]=Math.sqrt(sMN[i+(image.getWidth()-motif.getWidth())*j]);
+				sMN[i+diffWidth*j]=Math.sqrt(sMN[i+diffWidth*j]);
 			}
 		}
 	}
