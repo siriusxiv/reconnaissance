@@ -1,5 +1,3 @@
-package reconnaissance;
-
 import java.awt.Color;
 
 import ij.ImagePlus;
@@ -120,47 +118,4 @@ public class Image {
 		}
 		return res;
 	}
-
-	/**
-	 * Question 2.2
-	 * distX = norme de X, distP = norme de P; distPX = produit scalaire entre X et P
-	 * @param x
-	 * @param y
-	 * @param motif
-	 * @return
-	 */
-	public int SSD2(int x, int y, Motif motif){
-		int res = 0;int distX=0; int distP=0, distPX=0;
-		for(int i = 0; i<motif.getWidth() ; i++){
-			for(int j = 0; j<motif.getHeight() ; j++){
-				distX = distX+ (this.getPixel(i, j)*this.getPixel(x+i, y+j));
-				distP= distP+ motif.getPixel(i, j)*motif.getPixel(x+i, y+j);
-				distPX= distPX + motif.getPixel(i, j)*this.getPixel(x+i, y+j);		
-			}
-		}
-		res = distX*distX + distP*distP - 2*distPX;
-		return res;
-	}
-
-	public int[] minSSD2(Motif motif){
-		int[] res = new int[2];
-		res[0]=0; res[1]=0;
-		int min= this.SSD2(0, 0, motif);
-		int N = this.getHeight();
-		int M = this.getWidth();
-		int[][] Sn = new int[N][M];
-		for (int i=0; i<=N;i++){
-			for( int j=0; j<=M;j++){
-				for (int k=0; k<=motif.getWidth();k++) {Sn[i][j]+= motif.getPixel(i, j)*motif.getPixel(i, j+k);}
-			}
-		}
-		int[][] Smn = new int[N][M];
-		for (int i=0; i<=N;i++){
-			for( int j=0; j<=M;j++){
-				for (int k=0;k<=motif.getHeight();k++){Smn[i][j]+=Sn[i+k][j];}
-			}
-		}
-	}
-	//reste � trouver le minimum de Smn[i][j] et �a donnera la position de la forme qu'on cherche ??
-	//C'est �a ou pas ? Help !!!
 }
