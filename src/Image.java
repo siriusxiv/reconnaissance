@@ -2,6 +2,7 @@ import java.awt.Color;
 
 import ij.ImagePlus;
 import ij.gui.NewImage;
+import ij.io.FileSaver;
 
 /**
  * Wrapper pour le type ImagePlus de imageJ.
@@ -117,5 +118,21 @@ public class Image {
 			}
 		}
 		return res;
+	}
+	
+	/**
+	 * Enregistre l'image construite au format PNG
+	 * @param fileName le nom du fichier
+	 */
+	public void saveAsPng(String fileName) {
+		FileSaver fs = new FileSaver(image);
+		fs.saveAsPng(fileName+".png");
+	}
+	/** 
+	 * Affiche l'image
+	 * 
+	 */	
+	public void show(){
+		image.show();
 	}
 }
