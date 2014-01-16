@@ -37,6 +37,18 @@ public class Image {
 		image=img.image;
 	}
 	/**
+	 * Constructeur qui copie une image
+	 * @param imageACopier
+	 */
+	public Image(Image imageACopier){
+		this(imageACopier.getWidth(),imageACopier.getHeight());
+		for(int i = 0; i<imageACopier.getWidth() ; i++){
+			for(int j = 0; j<imageACopier.getHeight() ; j++){
+				this.setPixel(i, j, imageACopier.getPixel(i, j));
+			}
+		}
+	}
+	/**
 	 * Met en gris une image en couleur
 	 * @param rgb
 	 * @return
@@ -134,5 +146,45 @@ public class Image {
 	 */	
 	public void show(){
 		image.show();
+	}
+	/**
+	 * Affiche l'image de telle sorte qu'un cadre soit collé dessus.
+	 * Le cadre fait la taille du motif et son coin supérieur gauche
+	 * a pour coordonnées (x,y)
+	 * @param x
+	 * @param y
+	 * @param motif
+	 */
+	public void showCadre(int x, int y, Motif motif){
+		this.encadre(x, y, motif).show();
+	}
+	
+	private Image encadre(int x, int y, Motif motif){
+		Image imageEncadree = new Image(this);
+		for(int i = x; i < x+motif.getWidth() ; i++){
+			if(i%2==0)
+				imageEncadree.setPixel(i, y, 50);
+			else	
+				imageEncadree.setPixel(i, y, 200);
+		}
+		for(int i = x; i < x+motif.getWidth() ; i++){
+			if(i%2==0)
+				imageEncadree.setPixel(i, y+motif.getHeight(), 50);
+			else	
+				imageEncadree.setPixel(i, y+motif.getHeight(), 200);
+		}
+		for(int j = y; j < y+motif.getHeight() ; j++){
+			if(j%2==0)
+				imageEncadree.setPixel(x, j, 50);
+			else	
+				imageEncadree.setPixel(x, j, 200);
+		}
+		for(int j = y; j < y+motif.getHeight() ; j++){
+			if(j%2==0)
+				imageEncadree.setPixel(x+motif.getWidth(), j, 50);
+			else	
+				imageEncadree.setPixel(x+motif.getWidth(), j, 200);
+		}
+		return imageEncadree;
 	}
 }

@@ -7,7 +7,7 @@ import java.util.Calendar;
  */
 public class Test {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws CloneNotSupportedException {
 		Image image = new Image("carre_plein.png");
 		Motif motif = new Motif("motif.png");
 		int[] match = new int[2];
@@ -22,6 +22,9 @@ public class Test {
 		tac = Calendar.getInstance().getTimeInMillis();
 		System.out.println("Question 2.2 - Best Match: i="+match[0]+";j="+match[1]);
 		System.out.println("Computing time: "+(tac-tic)+"ms");
+		
+		//Affiche la position du motif reconnu
+		image.showCadre(match[0], match[1], motif);
 	}
 
 }
