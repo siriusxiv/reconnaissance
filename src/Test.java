@@ -1,4 +1,5 @@
 import java.util.Calendar;
+import java.util.LinkedList;
 
 /**
  * Contient les fonctions de tests
@@ -30,5 +31,17 @@ public class Test {
 		//Montre la rotation d'un motif
 		motif.rotate(35).show();
 	}
+/*
+    public static void main(String[] args) throws CloneNotSupportedException {
+        Image image = new Image("visage.png");
+        Motif[] motifs = new Motif[3];
+        motifs[0] = new Motif("motif1.png");
+        motifs[1] = new Motif("motif2.png");
+        motifs[2] = new Motif("motif3.png");
+        LinkedList<MatchMotif> matches = new LinkedList<MatchMotif>();
 
+        matches = image.detectObject(motifs);
+        image.showCadre(matches);
+    }
+*/
 }
