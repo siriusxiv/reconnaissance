@@ -1,3 +1,5 @@
+import ij.process.ImageProcessor;
+
 /**
  * Un motif est en tout point similaire à une image
  * On lui ajoute cependant une norme, ainsi qu'un vecteur
@@ -53,6 +55,9 @@ public class Motif extends Image {
 			}
 		}
 	}
+	public Motif(ImageProcessor ip){
+		super(ip);
+	}
 
 	/**
 	 * @return the norm
@@ -65,5 +70,16 @@ public class Motif extends Image {
 	 */
 	public double[] getNormalizedVector() {
 		return normalizedVector;
+	}
+	
+	/**
+	 * Tourne le motif de l'angle désiré (en degré)
+	 * @param angle
+	 * @return
+	 */
+	public Motif rotate(double angle){
+		ImageProcessor ip = this.getChannelProcessor();
+		ip.rotate(angle);
+		return new Motif(ip);
 	}
 }

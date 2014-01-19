@@ -3,6 +3,7 @@ import java.awt.Color;
 import ij.ImagePlus;
 import ij.gui.NewImage;
 import ij.io.FileSaver;
+import ij.process.ImageProcessor;
 
 /**
  * Wrapper pour le type ImagePlus de imageJ.
@@ -47,6 +48,13 @@ public class Image {
 				this.setPixel(i, j, imageACopier.getPixel(i, j));
 			}
 		}
+	}
+	/**
+	 * Crée une image à partir d'un ImageProcessor
+	 * @param ip
+	 */
+	public Image(ImageProcessor ip){
+		image = new ImagePlus("test", ip);
 	}
 	/**
 	 * Met en gris une image en couleur
@@ -159,6 +167,14 @@ public class Image {
 		this.encadre(x, y, motif).show();
 	}
 	
+	/**
+	 * Renvoie une image avec un cadre de la taille du motif dont
+	 * le coin supérieur gauche est aux coordonnée (x,y)
+	 * @param x
+	 * @param y
+	 * @param motif
+	 * @return
+	 */
 	private Image encadre(int x, int y, Motif motif){
 		Image imageEncadree = new Image(this);
 		for(int i = x; i < x+motif.getWidth() ; i++){
@@ -186,5 +202,13 @@ public class Image {
 				imageEncadree.setPixel(x+motif.getWidth(), j, 200);
 		}
 		return imageEncadree;
+	}
+	
+	/**
+	 * Obtient le processeur lié à la l'image
+	 * @return
+	 */
+	public ImageProcessor getChannelProcessor() {
+		return image.getProcessor();
 	}
 }
