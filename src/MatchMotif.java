@@ -9,7 +9,12 @@ public class MatchMotif {
 
 	private Motif motif;
 	private int x,y;
-
+	
+	public MatchMotif(Motif motif) {
+        this.motif = motif;
+        this.x     = 0;
+        this.y     = 0;
+	}
 	public MatchMotif(Motif motif, int x, int y) {
         this.motif = motif;
         this.x     = x;
@@ -35,5 +40,5 @@ public class MatchMotif {
     public int getY()
     {
         return this.y;
-    }
+    }    
 }

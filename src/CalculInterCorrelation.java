@@ -94,4 +94,26 @@ public class CalculInterCorrelation {
 		}
 		return res;
 	}
+	
+	/**
+	 * Renvoie la position sur l'image où le motif matche le plus.
+	 * @param minGlobal ce pointeur contient la distance minimum
+	 * calculée par l'algorithme
+	 * @return Un couple d'int : l'abscisse et l'ordonnée x de l'image
+	 */
+	public Calcul3SubResult minSSDforCalcul3(){
+		int[] res = new int[2];
+		res[0]=0; res[1]=0;
+		double min = this.SSD(0, 0);
+		for(int i = 0; i<image.getWidth()-motif.getWidth() ; i++){
+			for(int j = 0; j<image.getHeight()-motif.getHeight() ; j++){
+				double ssd = this.SSD(i, j);
+				if(min>ssd){
+					res[0]=i; res[1]=j;
+					min=ssd;
+				}
+			}
+		}
+		return new Calcul3SubResult(res,min);
+	}
 }

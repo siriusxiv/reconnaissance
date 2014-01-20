@@ -57,6 +57,25 @@ public class Motif extends Image {
 	}
 	public Motif(ImageProcessor ip){
 		super(ip);
+		norme=0;
+		for(int i = 0; i<this.getWidth() ; i++){
+			for(int j = 0; j<this.getHeight() ; j++){
+				norme+=this.getPixel(i, j)*this.getPixel(i, j);
+			}
+		}
+		norme=Math.sqrt(norme);
+		normalizedVector=new double[this.getWidth()*this.getHeight()];
+		if(norme==0){
+			for(int i = 0; i<normalizedVector.length ; i++){
+				normalizedVector[i]=0;
+			}
+		}else{
+			for(int i = 0; i<this.getWidth() ; i++){
+				for(int j = 0; j<this.getHeight() ; j++){
+					normalizedVector[i+this.getWidth()*j]=(double)this.getPixel(i, j)/norme;
+				}
+			}
+		}
 	}
 
 	/**
@@ -78,8 +97,35 @@ public class Motif extends Image {
 	 * @return
 	 */
 	public Motif rotate(double angle){
-		ImageProcessor ip = this.getChannelProcessor();
+		ImageProcessor ip = this.getChannelProcessor().duplicate();
 		ip.rotate(angle);
 		return new Motif(ip);
+	}
+	/**
+	 * change les dimmensions de l'image en gardant le même ratio entre la largeur et la longueur
+	 * @param newWidth
+	 * @return Le motif réduit ou agrandi
+	 */
+	public Motif resizeRatio(int newWidth){
+		return new Motif(this.getChannelProcessor().resize(newWidth));
+	}
+	/**
+	 * change les dimensions de l'image
+	 * @param newWidth
+	 * @param newHeight
+	 * @return Le motif réduit ou agrandi
+	 */
+	public Motif resize(int newWidth, int newHeight){
+		return new Motif(this.getChannelProcessor().resize(newWidth,newHeight));
+	}
+	/**
+	 * Utilise un filtre moyenneur avant de réduire l'image
+	 * @param newWidth
+	 * @param newHeight
+	 * @param useAverage
+	 * @return Le motif réduit ou agrandi
+	 */
+	public Motif resizeAverage(int newWidth, int newHeight, boolean useAverage){
+		return new Motif(this.getChannelProcessor().resize(newWidth,newHeight,useAverage));
 	}
 }
