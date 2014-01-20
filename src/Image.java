@@ -239,7 +239,11 @@ public class Image {
             }
         }
         
-        /* Pour l'instant, le retour ne fonctionne pas (le motif matche au mauvais endroit)
+        /* Le but de cette partie aurait été de découper le rectangle principale en rectangle de taille inférieure.
+		   En supposant que les motifs contiennent nécessairement un bord, on aurait ensuite pu éliminer les zones contenant une seule
+		   couleur (donc pas de bord). Toutefois, cette méthode pose des problèmes dans le cas où le motif intersecte plusieurs
+		   régions ou si le motif n'est pas rectangle.
+		 
         // On découpe le grand rectangle en petits
         for(i=grdRect[0];i<grdRect[2];i+=rectSize)
         {
